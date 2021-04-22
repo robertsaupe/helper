@@ -28,11 +28,7 @@ This software is distributed under the MIT license. Please read [LICENSE](LICENS
 - PHP 8.0.0 or higher
 
 ## Credits
-- https://github.com/splitbrain/php-archive
-- https://github.com/ifsnop/mysqldump-php
-- https://github.com/PHPMailer/PHPMailer
-- https://github.com/phpseclib/phpseclib
-- https://github.com/paragonie/constant_time_encoding
+- JsonUtil: https://stackoverflow.com/a/10252511/319266
 
 ## Changelog
 See [CHANGELOG](CHANGELOG.md).
