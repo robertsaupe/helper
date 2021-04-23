@@ -20,6 +20,7 @@
 - requests
 - rest api
 - time functions
+- json loader
 
 ## License
 This software is distributed under the MIT license. Please read [LICENSE](LICENSE) for information.

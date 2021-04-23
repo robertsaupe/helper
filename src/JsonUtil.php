@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2018, Robert Saupe. All rights reserved
  * @link https://github.com/robertsaupe/phphelper
  * @license MIT License
+ * 
+ * Based on https://stackoverflow.com/a/10252511/319266
  */
 
 namespace RobertSaupe\Helper;
@@ -17,23 +19,20 @@ namespace RobertSaupe\Helper;
  */
 class JsonUtil {
 
-    /**
-     * From https://stackoverflow.com/a/10252511/319266
-     * @return array|false|null
-     */
-    public static function Load( $filename ):array|false|null {
+    public static function Load( string $filename ):array|false|null {
         $contents = @file_get_contents( $filename );
         if ( $contents === false ) return false;
         return json_decode( self::stripComments( $contents ), true );
     }
 
-    /**
-     * From https://stackoverflow.com/a/10252511/319266
-     * @param string $str
-     * @return string
-     */
-    private static function stripComments( $str ) {
-        return preg_replace( '![ \t]*//.*[ \t]*[\r\n]!', '', $str );
+    private static function stripComments( string $json ):string|null {
+
+        if (class_exists('RobertSaupe\\Minify\\JSON')) {
+            return \RobertSaupe\Minify\JSON::Minify($json);
+        } else {
+            return preg_replace( '![ \t]*//.*[ \t]*[\r\n]!', '', $json );
+        }
+
     }
 
 }
