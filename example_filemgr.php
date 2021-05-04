@@ -15,11 +15,11 @@ require_once( dirname(__FILE__) . '/src/FileMgr.php' );
 use RobertSaupe\Helper\FileMgr;
 
 print('delete dir test: ');
-$result = FileMgr::Remove_Dir('test');
+$result = FileMgr::removeDir('test');
 var_dump($result);
 
 print('create dir test/new/newer: ');
-$result = FileMgr::Create_Dir('test/new/newer');
+$result = FileMgr::createDir('test/new/newer');
 var_dump($result);
 
 print('create file test/new/test.txt: ');
@@ -31,7 +31,7 @@ $result = file_put_contents('test/new/newer/test.txt', 'new');
 var_dump($result);
 
 print('open dir test: ' . PHP_EOL);
-FileMgr::Open_Dir('test', callback_file: function($file) {
+FileMgr::openDir('test', callback_file: function($file) {
     print('file: ' . PHP_EOL);
     print_r($file);
 }, callback_dir: function($file) {
@@ -40,6 +40,6 @@ FileMgr::Open_Dir('test', callback_file: function($file) {
 });
 
 print('delete dir test: ');
-$result = FileMgr::Remove_Dir('test');
+$result = FileMgr::removeDir('test');
 var_dump($result);
 ?>

@@ -20,7 +20,7 @@ class FileMgr {
      * @param string|null $filename
      * @return string
      */
-    public static function Get_Extension(?string $filename = null):string {
+    public static function getExtension(?string $filename = null):string {
         $filename = basename($filename);
         if ($filename == null) return '';
         if (mb_strrpos($filename, '.') !== false) return strtolower(mb_substr($filename, mb_strrpos($filename, '.') + 1));
@@ -33,7 +33,7 @@ class FileMgr {
      * @param string|null $filename
      * @return string
      */
-    public static function Get_Name(?string $filename = null):string {
+    public static function getName(?string $filename = null):string {
         $filename = basename($filename);
         if ($filename == null) return '';
         $undefined = mb_strpos($filename, '?');
@@ -51,7 +51,7 @@ class FileMgr {
      * @param int|string $mode
      * @return null|bool
      */
-    public static function CHMOD(string $file, int|string $mode = '0755'):null|bool {
+    public static function chmod(string $file, int|string $mode = '0755'):null|bool {
         if (!file_exists($file) || !is_readable($file)) return null;
         if (is_string($mode) && strlen($mode) == 4) return @chmod($file, @octdec($mode));
         else if (is_int($mode)) return @chmod($file, $mode);
@@ -64,7 +64,7 @@ class FileMgr {
      * @param string $dir
      * @return string
      */
-    public static function Dirname(string $dir):string {
+    public static function dirname(string $dir):string {
         $dir = str_replace("\\", "/", $dir);
         if (strlen($dir) > 1 && (mb_substr($dir, -1) == '/')) $dir = mb_substr($dir, 0, -1);
         return $dir;
@@ -79,7 +79,7 @@ class FileMgr {
      * @param bool $recursive
      * @return null|bool
      */
-    public static function Create_Dir(string $dir, int|string $mode = '0755', bool $recursive = true):null|bool {
+    public static function createDir(string $dir, int|string $mode = '0755', bool $recursive = true):null|bool {
         if (is_dir($dir)) return null;
         if (is_string($mode) && strlen($mode) == 4) return @mkdir($dir, @octdec($mode), $recursive);
         else if (is_int($mode)) return @mkdir($dir, $mode, $recursive);
@@ -99,8 +99,8 @@ class FileMgr {
      * @param object|null $callback_dir
      * @return void
      */
-    public static function Open_Dir(string $dir, ?array $excludes = null, bool $recursive = true, ?string $basedir = null, ?object $callback_file = null, ?object $callback_dir = null) {
-        $dir = self::Dirname($dir);
+    public static function openDir(string $dir, ?array $excludes = null, bool $recursive = true, ?string $basedir = null, ?object $callback_file = null, ?object $callback_dir = null) {
+        $dir = self::dirname($dir);
         if ($basedir == null) $basedir = $dir;
         if (!is_dir($dir)) return;
         $filelist = scandir($dir);
@@ -127,14 +127,14 @@ class FileMgr {
 
             if (is_dir($file_path)) {
                 $file_obj->typ = 'dir';
-                if ($recursive) self::Open_Dir($file_path, $excludes, $recursive, $basedir, $callback_file, $callback_dir);
+                if ($recursive) self::openDir($file_path, $excludes, $recursive, $basedir, $callback_file, $callback_dir);
                 if ($callback_dir !== null) $callback_dir($file_obj);
                 continue;
             }
 
             $file_obj->typ = 'file';
-            $file_obj->name = self::Get_Name($file);
-            $file_obj->ext = self::Get_Extension($file);
+            $file_obj->name = self::getName($file);
+            $file_obj->ext = self::getExtension($file);
 
             $callback_file($file_obj);
             
@@ -150,10 +150,10 @@ class FileMgr {
      * @param boolean $recursive
      * @return null|bool
      */
-    public static function Remove_Dir(string $dir, bool $recursive = true):null|bool {
+    public static function removeDir(string $dir, bool $recursive = true):null|bool {
         if (!is_dir($dir)) return null;
         if (!$recursive) return @rmdir($dir);
-        self::Open_Dir($dir, callback_file: function($file) {
+        self::openDir($dir, callback_file: function($file) {
             @unlink($file->path);
         }, callback_dir: function($file) {
             @rmdir($file->path);

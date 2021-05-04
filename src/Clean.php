@@ -14,15 +14,27 @@ namespace RobertSaupe\Helper;
 
 class Clean {
 
-    public static function String($string):string {
+    private static function trim($element) {
+        if (is_array($element)) return self::trim($element);
+        else if (is_string($element)) return trim($element);
+        else return $element;
+    }
+
+    private static function htmlentities($element) {
+        if (is_array($element)) return self::htmlentities($element);
+        else if (is_string($element)) return htmlentities($element);
+        else return $element;
+    }
+
+    public static function string($string):string {
         $string = trim($string);
         $string = htmlentities($string);
         return $string;
     }
 
-    public static function Array(array $array):array {
-        $array = array_map('trim', $array);
-        $array = array_map('htmlentities', $array);
+    public static function array(array $array):array {
+        $array = array_map('self::trim', $array);
+        $array = array_map('self::htmlentities', $array);
         return $array;
     }
 
@@ -34,10 +46,10 @@ class Clean {
      *
      * @return void
      */
-    public static function Input() {
-        if (isset($_GET)) $_GET = self::Array($_GET);
-        if (isset($_POST)) $_POST = self::Array($_POST);
-        if (isset($_FILES)) $_FILES = array_map('self::Array', $_FILES);
+    public static function input() {
+        if (isset($_GET)) $_GET = self::array($_GET);
+        if (isset($_POST)) $_POST = self::array($_POST);
+        if (isset($_FILES)) $_FILES = self::array($_FILES);
     }
 
 }

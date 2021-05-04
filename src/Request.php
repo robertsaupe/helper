@@ -20,7 +20,7 @@ class Request {
     private static ?string $request_string = null;
     private static ?array $request_array = null;
 
-    public static function Set_Folder(?string $folder = null) {
+    public static function setFolder(?string $folder = null) {
         if ($folder == null)  {
             $folder = dirname($_SERVER['SCRIPT_NAME']);
             if (strlen($folder) <= 1) $folder = '';
@@ -29,14 +29,14 @@ class Request {
         self::$folder = $folder;
     }
 
-    public static function Set_File(?string $file = null) {
+    public static function setFile(?string $file = null) {
         if ($file == null) $file = basename($_SERVER['SCRIPT_NAME']);
         self::$file = $file;
     }
 
-    public static function Load(?string $folder = null, ?string $file = null) {
-        self::Set_Folder($folder);
-        self::Set_File($file);
+    public static function load(?string $folder = null, ?string $file = null) {
+        self::setFolder($folder);
+        self::setFile($file);
 
         //remove folder
         $request = implode('', explode(self::$folder, $_SERVER['REQUEST_URI'], 2));
@@ -48,7 +48,7 @@ class Request {
         $request = explode('?', $request, 2)[0];
 
         //clean
-        $request = Clean::String($request);
+        $request = Clean::string($request);
 
         //remove / from begin and end
         if (substr($request, 0, 1) == '/') $request = substr($request, 1);
@@ -58,13 +58,13 @@ class Request {
         self::$request_array = explode('/', $request);
     }
 
-    public static function String():string {
-        if (self::$request_string == null) self::Load();
+    public static function string():string {
+        if (self::$request_string == null) self::load();
         return self::$request_string;
     }
 
-    public static function Array():array {
-        if (self::$request_array == null) self::Load();
+    public static function array():array {
+        if (self::$request_array == null) self::load();
         return self::$request_array;
     }
 

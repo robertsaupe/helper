@@ -34,11 +34,11 @@ class Rest {
             $this->result = file_get_contents($this->url, false, stream_context_create($this->context));
     }
 
-    public function GetRAW():string|false {
+    public function getRAW():string|false {
         return $this->result;
     }
 
-    public function GetJSON():null|array {
+    public function getJSON():null|array {
         return json_decode($this->result, true);
     }
 

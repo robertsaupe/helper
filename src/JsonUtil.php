@@ -19,7 +19,7 @@ namespace RobertSaupe\Helper;
  */
 class JsonUtil {
 
-    public static function Load( string $filename ):array|false|null {
+    public static function load( string $filename ):array|false|null {
         $contents = @file_get_contents( $filename );
         if ( $contents === false ) return false;
         return json_decode( self::stripComments( $contents ), true );
@@ -28,7 +28,7 @@ class JsonUtil {
     private static function stripComments( string $json ):string|null {
 
         if (class_exists('RobertSaupe\\Minify\\JSON')) {
-            return \RobertSaupe\Minify\JSON::Minify($json);
+            return \RobertSaupe\Minify\JSON::minify($json);
         } else {
             return preg_replace( '![ \t]*//.*[ \t]*[\r\n]!', '', $json );
         }

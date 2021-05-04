@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.0 - 2021-05-04
+- coding standards
+
 ## 2.0.1 - 2021-04-23
 - change JsonUtil to support Minify::JSON
 
