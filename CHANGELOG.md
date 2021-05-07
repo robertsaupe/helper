@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.1 - 2021-05-07
+- clean->input() array bug fixed
+
 ## 3.0.0 - 2021-05-04
 - coding standards
 

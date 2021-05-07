@@ -15,13 +15,13 @@ namespace RobertSaupe\Helper;
 class Clean {
 
     private static function trim($element) {
-        if (is_array($element)) return self::trim($element);
+        if (is_array($element)) return array_map('self::trim', $element);
         else if (is_string($element)) return trim($element);
         else return $element;
     }
 
     private static function htmlentities($element) {
-        if (is_array($element)) return self::htmlentities($element);
+        if (is_array($element)) return array_map('self::htmlentities', $element);
         else if (is_string($element)) return htmlentities($element);
         else return $element;
     }
