@@ -17,7 +17,7 @@ namespace robertsaupe\helper;
 /**
  * implements custom json decode with comments support
  */
-class Jsonutil {
+class jsonutil {
 
     public static function load( string $filename ):array|false|null {
         $contents = @file_get_contents( $filename );
