@@ -12,12 +12,12 @@
  * Based on https://stackoverflow.com/a/10252511/319266
  */
 
-namespace RobertSaupe\Helper;
+namespace robertsaupe\helper;
 
 /**
  * implements custom json decode with comments support
  */
-class JsonUtil {
+class Jsonutil {
 
     public static function load( string $filename ):array|false|null {
         $contents = @file_get_contents( $filename );
@@ -27,8 +27,8 @@ class JsonUtil {
 
     private static function stripComments( string $json ):string|null {
 
-        if (class_exists('RobertSaupe\\Minify\\JSON')) {
-            return \RobertSaupe\Minify\JSON::minify($json);
+        if (class_exists('robertsaupe\\minify\\json')) {
+            return \robertsaupe\minify\json::minify($json);
         } else {
             return preg_replace( '![ \t]*//.*[ \t]*[\r\n]!', '', $json );
         }

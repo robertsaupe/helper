@@ -10,9 +10,9 @@
  * @license MIT License
  */
 
-namespace RobertSaupe\Helper;
+namespace robertsaupe\helper;
 
-class Clean {
+class clean {
 
     private static function trim($element) {
         if (is_array($element)) return array_map('self::trim', $element);

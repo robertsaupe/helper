@@ -10,12 +10,12 @@
  * @license MIT License
  */
 
-namespace RobertSaupe\Helper;
+namespace robertsaupe\helper;
 
 /**
  * some time functions
  */
-class Time {
+class time {
 
     public const FORMAT_SHORT = 'Y-m-d';
     public const FORMAT_LONG = 'Y-m-d_H-i-s';
@@ -28,7 +28,7 @@ class Time {
      * @param string $format
      * @return bool
      */
-    public static function setFormat(string $format):bool {
+    public static function set_format(string $format):bool {
         if ($format == '') return false;
         self::$format = $format;
         return true;
@@ -40,7 +40,7 @@ class Time {
      * @param string $format
      * @return bool
      */
-    public static function getFormat():string {
+    public static function get_format():string {
         return self::$format;
     }
 
@@ -50,7 +50,7 @@ class Time {
      * @param integer|null $timestamp
      * @return string
      */
-    public static function getFormattedDate(?int $timestamp = null):string {
+    public static function get_formatted_date(?int $timestamp = null):string {
         if ($timestamp == null) $timestamp = time();
         return date(self::$format, $timestamp);
     }
@@ -61,7 +61,7 @@ class Time {
      * @param string|null $timezone
      * @return bool
      */
-    public static function setZone(?string $timezone = null):bool {
+    public static function set_zone(?string $timezone = null):bool {
         if ( $timezone != null && $timezone != '' ) return date_default_timezone_set($timezone);
         else return false;
     }
@@ -71,7 +71,7 @@ class Time {
      *
      * @return string
      */
-    public static function getZone():string {
+    public static function get_zone():string {
         return date_default_timezone_get();
     }
 

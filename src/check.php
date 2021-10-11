@@ -10,21 +10,37 @@
  * @license MIT License
  */
 
-namespace RobertSaupe\Helper;
+namespace robertsaupe\helper;
 
-class Check {
+class check {
 
-    public static function isSSL():bool {
+    public static function is_ssl():bool {
         if( !empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] != 'off' ) return true;
         else if( !empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ) return true;
         else return false;
     }
 
-    public static function isMail(string $mail):bool {
+    public static function is_insecure():bool {
+        return !self::is_ssl();
+    }
+
+    public static function is_secure():bool {
+        return self::is_ssl();
+    }
+
+    public static function is_http():bool {
+        return !self::is_ssl();
+    }
+
+    public static function is_https():bool {
+        return self::is_ssl();
+    }
+
+    public static function is_mail(string $mail):bool {
         if (preg_match('/^[^@]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$/', $mail)) return true; else return false;
     }
 
-    public static function isText(string $text):bool {
+    public static function is_text(string $text):bool {
         if (preg_match('/[^a-zA-Z0-9._-]/i',$text)) return false; else return true;
     }
 

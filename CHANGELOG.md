@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.1.0 - 2021-10-11
+- namespace correction
+
 ## 3.0.1 - 2021-05-07
 - clean->input() array bug fixed
 

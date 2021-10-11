@@ -10,9 +10,9 @@
  * @license MIT License
  */
 
-namespace RobertSaupe\Helper;
+namespace robertsaupe\helper;
 
-class Request {
+class request {
 
     private static ?string $folder = null;
     private static ?string $file = null;
@@ -20,7 +20,7 @@ class Request {
     private static ?string $request_string = null;
     private static ?array $request_array = null;
 
-    public static function setFolder(?string $folder = null) {
+    public static function set_folder(?string $folder = null) {
         if ($folder == null)  {
             $folder = dirname($_SERVER['SCRIPT_NAME']);
             if (strlen($folder) <= 1) $folder = '';
@@ -29,14 +29,14 @@ class Request {
         self::$folder = $folder;
     }
 
-    public static function setFile(?string $file = null) {
+    public static function set_file(?string $file = null) {
         if ($file == null) $file = basename($_SERVER['SCRIPT_NAME']);
         self::$file = $file;
     }
 
     public static function load(?string $folder = null, ?string $file = null) {
-        self::setFolder($folder);
-        self::setFile($file);
+        self::set_folder($folder);
+        self::set_file($file);
 
         //remove folder
         $request = implode('', explode(self::$folder, $_SERVER['REQUEST_URI'], 2));

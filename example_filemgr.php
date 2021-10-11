@@ -10,16 +10,16 @@
  * @license MIT License
  */
 
-require_once( dirname(__FILE__) . '/src/FileMgr.php' );
+require_once( dirname(__FILE__) . '/src/filemgr.php' );
 
-use RobertSaupe\Helper\FileMgr;
+use robertsaupe\helper\filemgr;
 
 print('delete dir test: ');
-$result = FileMgr::removeDir('test');
+$result = filemgr::remove_dir('test');
 var_dump($result);
 
 print('create dir test/new/newer: ');
-$result = FileMgr::createDir('test/new/newer');
+$result = filemgr::create_dir('test/new/newer');
 var_dump($result);
 
 print('create file test/new/test.txt: ');
@@ -31,7 +31,7 @@ $result = file_put_contents('test/new/newer/test.txt', 'new');
 var_dump($result);
 
 print('open dir test: ' . PHP_EOL);
-FileMgr::openDir('test', callback_file: function($file) {
+filemgr::open_dir('test', callback_file: function($file) {
     print('file: ' . PHP_EOL);
     print_r($file);
 }, callback_dir: function($file) {
@@ -40,6 +40,6 @@ FileMgr::openDir('test', callback_file: function($file) {
 });
 
 print('delete dir test: ');
-$result = FileMgr::removeDir('test');
+$result = filemgr::remove_dir('test');
 var_dump($result);
 ?>

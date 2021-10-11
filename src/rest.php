@@ -10,9 +10,9 @@
  * @license MIT License
  */
 
-namespace RobertSaupe\Helper;
+namespace robertsaupe\helper;
 
-class Rest {
+class rest {
 
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
@@ -34,11 +34,11 @@ class Rest {
             $this->result = file_get_contents($this->url, false, stream_context_create($this->context));
     }
 
-    public function getRAW():string|false {
+    public function get_raw():string|false {
         return $this->result;
     }
 
-    public function getJSON():null|array {
+    public function get_json():null|array {
         return json_decode($this->result, true);
     }
 

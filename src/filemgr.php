@@ -10,9 +10,9 @@
  * @license MIT License
  */
 
-namespace RobertSaupe\Helper;
+namespace robertsaupe\helper;
 
-class FileMgr {
+class filemgr {
 
     /**
      * get extension of a file
@@ -20,7 +20,7 @@ class FileMgr {
      * @param string|null $filename
      * @return string
      */
-    public static function getExtension(?string $filename = null):string {
+    public static function get_extension(?string $filename = null):string {
         $filename = basename($filename);
         if ($filename == null) return '';
         if (mb_strrpos($filename, '.') !== false) return strtolower(mb_substr($filename, mb_strrpos($filename, '.') + 1));
@@ -33,7 +33,7 @@ class FileMgr {
      * @param string|null $filename
      * @return string
      */
-    public static function getName(?string $filename = null):string {
+    public static function get_name(?string $filename = null):string {
         $filename = basename($filename);
         if ($filename == null) return '';
         $undefined = mb_strpos($filename, '?');
@@ -79,7 +79,7 @@ class FileMgr {
      * @param bool $recursive
      * @return null|bool
      */
-    public static function createDir(string $dir, int|string $mode = '0755', bool $recursive = true):null|bool {
+    public static function create_dir(string $dir, int|string $mode = '0755', bool $recursive = true):null|bool {
         if (is_dir($dir)) return null;
         if (is_string($mode) && strlen($mode) == 4) return @mkdir($dir, @octdec($mode), $recursive);
         else if (is_int($mode)) return @mkdir($dir, $mode, $recursive);
@@ -99,7 +99,7 @@ class FileMgr {
      * @param object|null $callback_dir
      * @return void
      */
-    public static function openDir(string $dir, ?array $excludes = null, bool $recursive = true, ?string $basedir = null, ?object $callback_file = null, ?object $callback_dir = null) {
+    public static function open_dir(string $dir, ?array $excludes = null, bool $recursive = true, ?string $basedir = null, ?object $callback_file = null, ?object $callback_dir = null) {
         $dir = self::dirname($dir);
         if ($basedir == null) $basedir = $dir;
         if (!is_dir($dir)) return;
@@ -127,14 +127,14 @@ class FileMgr {
 
             if (is_dir($file_path)) {
                 $file_obj->typ = 'dir';
-                if ($recursive) self::openDir($file_path, $excludes, $recursive, $basedir, $callback_file, $callback_dir);
+                if ($recursive) self::open_dir($file_path, $excludes, $recursive, $basedir, $callback_file, $callback_dir);
                 if ($callback_dir !== null) $callback_dir($file_obj);
                 continue;
             }
 
             $file_obj->typ = 'file';
-            $file_obj->name = self::getName($file);
-            $file_obj->ext = self::getExtension($file);
+            $file_obj->name = self::get_name($file);
+            $file_obj->ext = self::get_extension($file);
 
             $callback_file($file_obj);
             
@@ -150,10 +150,10 @@ class FileMgr {
      * @param boolean $recursive
      * @return null|bool
      */
-    public static function removeDir(string $dir, bool $recursive = true):null|bool {
+    public static function remove_dir(string $dir, bool $recursive = true):null|bool {
         if (!is_dir($dir)) return null;
         if (!$recursive) return @rmdir($dir);
-        self::openDir($dir, callback_file: function($file) {
+        self::open_dir($dir, callback_file: function($file) {
             @unlink($file->path);
         }, callback_dir: function($file) {
             @rmdir($file->path);
