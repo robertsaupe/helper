@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.2.0 - 2021-10-13
+- header class added (Access-Control-Allow-Origin)
+
 ## 3.1.1 - 2021-10-11
 - namespace correction
 
